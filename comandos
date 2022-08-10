@@ -1,0 +1,45 @@
+docker ps 
+lista imagem rodando
+
+docker image ls 
+lista as imagens criadas
+
+docker ps -a
+lista as imagens já executadas anteriormentes
+
+docker rmi “nome da imagem”
+remove a imagem
+
+docker run “nome da imagem”
+cria uma imagem
+
+docker run -d “imagem”
+executa imagem em modo teste
+
+docker run --name “nome do servidor” -d nginx
+cria um nome para a imagem 
+
+docker system prune -a
+apaga todas as imagens
+
+docker rm $(docker ps -aq) -f
+remove as imagens montadas
+
+
+
+
+
+docker run --name servidor-mysql -e MYSQL_ROOT_PASSWORD=123 -dp 3306:3306 mysql
+
+docker exec -it servidor-mysql mysql -uroot -p123 
+
+CREATE DATABASE frame2;
+
+USE frame2;
+
+CREATE TABLE user(id int(4) AUTO_INCREMENT, nome varchar(50) NOT NULL, password varchar(30), PRIMARY KEY (id));
+
+
+
+
+docker run --name mysql-server -v /my/own/datadir:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=admin -dp 3306:3306 mysql 
