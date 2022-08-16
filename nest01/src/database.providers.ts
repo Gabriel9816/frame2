@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
 import { CreateCatDto } from './cats/dto/cats.dto';
+import { CreateDogDto } from './dogs/dto/dogs.dto';
 
 export const databaseProviders = [
   {
@@ -12,7 +13,7 @@ export const databaseProviders = [
         username: 'Gabriel',
         password: '123',
         database: 'frame2',
-        entities: [CreateCatDto],
+        entities: [CreateCatDto, CreateDogDto],
         synchronize: true,
       });
 
