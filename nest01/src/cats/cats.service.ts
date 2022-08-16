@@ -14,12 +14,12 @@ export class CatsService {
     // buscará todos os elementos do bd
     return this.cats;
   }
-  findOne(id: number) {
+  findOne(id: string) {
     const cat = this.cats.filter((value) => value.id == id);
     return cat;
   }
 
-  remove(id: number) {
+  remove(id: string) {
     const cats_remove = this.cats.filter((value) => value.id != id);
     this.cats = cats_remove;
   }

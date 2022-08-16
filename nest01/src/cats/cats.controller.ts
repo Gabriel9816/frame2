@@ -25,7 +25,7 @@ export class CatsController {
   }
 
   @Get('find/:id')
-  findOneMore(@Param('id') id: number): string {
+  findOneMore(@Param('id') id: string): string {
     return `encontrei um outro cat com id ${id}`;
   }
 
@@ -37,12 +37,12 @@ export class CatsController {
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() updateCat: CreateCatDto): string {
-    return 'update cats';
+  update(@Param('id') id: string, @Body() updateCat: CreateCatDto): string {
+    this.catsService.update(updateCat, id);
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number): string {
-    return 'delete cat';
+  delete(@Param('id') id: string): string {
+    this.catsService.remove(id);
   }
 }
