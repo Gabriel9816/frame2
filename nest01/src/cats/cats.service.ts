@@ -24,7 +24,7 @@ export class CatsService {
     this.cats = cats_remove;
   }
 
-  update(createCatDto: CreateCatDto) {
+  update(createCatDto: CreateCatDto, id: string) {
     //atualizar ele na lista remover ou usar outra função pode usar o map
     const cat_update = this.findOne(createCatDto.id);
     return cat_update;

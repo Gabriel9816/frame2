@@ -37,10 +37,11 @@ export class DogsController {
   @Put(':id')
   update(@Param('id') id: string, @Body() updateDog: CreateDogDto): string {
     this.dogsService.update(updateDog, id);
+    return 'updateDog';
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): string {
+  delete(@Param('id') id: string) {
     this.dogsService.remove(id);
   }
 }

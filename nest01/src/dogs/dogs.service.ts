@@ -24,7 +24,7 @@ export class DogsService {
     this.dogs = dogs_remove;
   }
 
-  update(createDogDto: CreateDogDto) {
+  update(createDogDto: CreateDogDto, id: string) {
     //atualizar ele na lista remover ou usar outra função pode usar o map
     const dog_update = this.findOne(createDogDto.id);
     return dog_update;

@@ -39,10 +39,11 @@ export class CatsController {
   @Put(':id')
   update(@Param('id') id: string, @Body() updateCat: CreateCatDto): string {
     this.catsService.update(updateCat, id);
+    return 'updateCat';
   }
 
   @Delete(':id')
-  delete(@Param('id') id: string): string {
+  delete(@Param('id') id: string) {
     this.catsService.remove(id);
   }
 }
