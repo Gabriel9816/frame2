@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
 import { CreateCatDto } from './dto/cats.dto';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CatsService {
@@ -11,7 +11,7 @@ export class CatsService {
   }
 
   findAll(): CreateCatDto[] {
-    // buscará todos os elementos do bd
+    // buscará todos os elementos do bd@
     return this.cats;
   }
   findOne(id: string) {
@@ -26,7 +26,12 @@ export class CatsService {
 
   update(createCatDto: CreateCatDto, id: string) {
     //atualizar ele na lista remover ou usar outra função pode usar o map
-    const cat_update = this.findOne(createCatDto.id);
-    return cat_update;
+    this.cats.map((obj: CreateCatDto) => {
+      if (obj.id === id) {
+        obj.name = createCatDto.name;
+        obj.age = createCatDto.age;
+      }
+    });
+    return this.findOne(id);
   }
 }
