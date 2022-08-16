@@ -8,7 +8,7 @@ export const databaseProviders = [
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'mysql',
-        host: 'localhost', //colcoar aqui do serviço do docker
+        host: 'mysql-container', //colcoar aqui do serviço do docker
         port: 3306,
         username: 'Gabriel',
         password: '123',
