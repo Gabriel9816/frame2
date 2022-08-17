@@ -10,7 +10,7 @@ export const databaseProviders = [
         type: 'mysql',
         host: 'mysql-container', //colcoar aqui do serviço do docker
         port: 3306,
-        username: 'Gabriel',
+        username: 'root',
         password: '123',
         database: 'frame2',
         entities: [CreateCatDto, CreateDogDto],

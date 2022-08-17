@@ -9,13 +9,14 @@ import {
 } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/cats.dto';
+import { CreateCat } from './entity/createcats.entity';
 
 @Controller('cats')
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
   @Get()
-  findAll(): CreateCatDto[] {
+  findAll(): Promise<CreateCat[]> {
     return this.catsService.findAll();
   }
 
