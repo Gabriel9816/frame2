@@ -1,11 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Dog } from './entity/dogs.entity';
 
 @Injectable()
 export class DogsService {
   constructor(
-    @Inject('DOGS_REPOSITORY') private dogsRepository: Repository<Dog>,
+    @InjectRepository(Dog)
+    private dogsRepository: Repository<Dog>,
   ) {}
 
   create(dog: Dog): void {

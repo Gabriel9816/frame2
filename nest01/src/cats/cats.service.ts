@@ -1,11 +1,13 @@
 import { Repository } from 'typeorm';
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Cat } from './entity/cats.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CatsService {
   constructor(
-    @Inject('CATS_REPOSITORY') private catsRepository: Repository<Cat>,
+    @InjectRepository(Cat)
+    private catsRepository: Repository<Cat>,
   ) {}
 
   create(cat: Cat): void {
@@ -24,20 +26,20 @@ export class CatsService {
     });
   }
 
-  remove(catId: string): void {
-    this.catsRepository.delete({ id: catId });
+  async remove(id: string) {
+    return await this.catsRepository.delete(id);
   }
 
-  async update(catId: string, cat: Cat): Promise<Cat> {
+  async update(id: string, cat: Cat): Promise<Cat> {
     this.catsRepository.update(
       {
-        id: catId,
+        id: id,
       },
       {
         name: cat.name,
         age: cat.age,
       },
     );
-    return this.findOne(catId);
+    return this.findOne(id);
   }
 }
