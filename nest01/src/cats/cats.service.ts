@@ -1,43 +1,43 @@
-import { CreateCatDto } from './dto/cats.dto';
 import { Repository } from 'typeorm';
 import { Injectable, Inject } from '@nestjs/common';
-import { CreateCat } from './entity/createcats.entity';
+import { Cat } from './entity/cats.entity';
 
 @Injectable()
 export class CatsService {
-  private cats: CreateCatDto[] = [];
-
   constructor(
-    @Inject('CATS_REPOSITORY')
-    private catsRepository: Repository<CreateCat>,
+    @Inject('CATS_REPOSITORY') private catsRepository: Repository<Cat>,
   ) {}
-  create(cat: CreateCatDto) {
-    // inserir no banco de dados usando o repository
-    this.cats.push(cat);
+
+  create(cat: Cat): void {
+    this.catsRepository.save(cat);
   }
 
-  findAll(): Promise<CreateCat[]> {
-    // buscará todos os elementos do bd@
+  async findAll(): Promise<Cat[]> {
     return this.catsRepository.find();
   }
-  findOne(id: string) {
-    const cat = this.cats.filter((value) => value.id == id);
-    return cat;
-  }
 
-  remove(id: string) {
-    const cats_remove = this.cats.filter((value) => value.id != id);
-    this.cats = cats_remove;
-  }
-
-  update(createCatDto: CreateCatDto, id: string) {
-    //atualizar ele na lista remover ou usar outra função pode usar o map
-    this.cats.map((obj: CreateCatDto) => {
-      if (obj.id === id) {
-        obj.name = createCatDto.name;
-        obj.age = createCatDto.age;
-      }
+  async findOne(catId: string): Promise<Cat> {
+    return this.catsRepository.findOne({
+      where: {
+        id: catId,
+      },
     });
-    return this.findOne(id);
+  }
+
+  remove(catId: string): void {
+    this.catsRepository.delete({ id: catId });
+  }
+
+  async update(catId: string, cat: Cat): Promise<Cat> {
+    this.catsRepository.update(
+      {
+        id: catId,
+      },
+      {
+        name: cat.name,
+        age: cat.age,
+      },
+    );
+    return this.findOne(catId);
   }
 }

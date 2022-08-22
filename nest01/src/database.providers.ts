@@ -1,20 +1,22 @@
+import { Dog } from './dogs/entity/dogs.entity';
+import { Cat } from './cats/entity/cats.entity';
 import { DataSource } from 'typeorm';
-import { CreateCatDto } from './cats/dto/cats.dto';
-import { CreateDogDto } from './dogs/dto/dogs.dto';
 
 export const databaseProviders = [
   {
-    provide: 'DATA_SOURCE',
+    provide: 'NEST001DATASOURCE',
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'mysql',
-        host: 'mysql-container', //colcoar aqui do serviço do docker
+        host: 'dbmysql',
         port: 3306,
         username: 'root',
-        password: '123',
-        database: 'frame2',
-        entities: [CreateCatDto, CreateDogDto],
+        password: 'admin',
+        database: 'dbframe',
+        entities: [Cat, Dog],
+        // entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
+        logging: true,
       });
 
       return dataSource.initialize();

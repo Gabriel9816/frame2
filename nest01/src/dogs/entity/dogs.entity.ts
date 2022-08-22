@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class CreateCat {
+export class Dog {
   @PrimaryGeneratedColumn()
   id: string;
 

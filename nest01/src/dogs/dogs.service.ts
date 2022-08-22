@@ -1,32 +1,43 @@
-import { Injectable } from '@nestjs/common';
-import { CreateDogDto } from './dto/dogs.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { Dog } from './entity/dogs.entity';
 
 @Injectable()
 export class DogsService {
-  private dogs: CreateDogDto[] = [];
+  constructor(
+    @Inject('DOGS_REPOSITORY') private dogsRepository: Repository<Dog>,
+  ) {}
 
-  create(dog: CreateDogDto) {
-    // inserir no banco de dados usando o repository
-    this.dogs.push(dog);
+  create(dog: Dog): void {
+    this.dogsRepository.save(dog);
   }
 
-  findAll(): CreateDogDto[] {
-    // buscará todos os elementos do bd
-    return this.dogs;
-  }
-  findOne(id: string) {
-    const dog = this.dogs.filter((value) => value.id == id);
-    return dog;
+  async findAll(): Promise<Dog[]> {
+    return this.dogsRepository.find();
   }
 
-  remove(id: string) {
-    const dogs_remove = this.dogs.filter((value) => value.id != id);
-    this.dogs = dogs_remove;
+  async findOne(dogId: string): Promise<Dog> {
+    return this.dogsRepository.findOne({
+      where: {
+        id: dogId,
+      },
+    });
   }
 
-  update(createDogDto: CreateDogDto, id: string) {
-    //atualizar ele na lista remover ou usar outra função pode usar o map
-    const dog_update = this.findOne(createDogDto.id);
-    return dog_update;
+  remove(dogId: string): void {
+    this.dogsRepository.delete({ id: dogId });
+  }
+
+  async update(dogId: string, dog: Dog): Promise<Dog> {
+    this.dogsRepository.update(
+      {
+        id: dogId,
+      },
+      {
+        name: dog.name,
+        age: dog.age,
+      },
+    );
+    return this.findOne(dogId);
   }
 }

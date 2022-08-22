@@ -1,10 +1,10 @@
+import { Cat } from './entity/cats.entity';
 import { DataSource } from 'typeorm';
-import { CreateCat } from './entity/createcats.entity';
 
 export const catsProviders = [
   {
     provide: 'CATS_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(CreateCat),
-    inject: ['DATA_SOURCE'],
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(Cat),
+    inject: ['NEST001DATASOURCE'],
   },
 ];
